@@ -1,0 +1,6 @@
+{
+  "name": "MatchPoint Tennis",
+  "description": "Plataforma completa para tenistas e gestores organizarem torneios com chaves automáticas, rankings de classes, agendamento de quadras, registro de placares e chat comunitário.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
