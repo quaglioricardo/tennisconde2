@@ -1,1 +1,32 @@
 @import "tailwindcss";
+
+/*
+ * Australian Open palette: court blue everywhere, green reserved for actions
+ * (buttons, wins, confirmations). `slate` is remapped to a blue-tinted navy so
+ * every surface picks up the court tone without touching each component.
+ */
+@theme {
+  --color-court-50: #eaf7fd;
+  --color-court-100: #d3eefa;
+  --color-court-200: #a6daf2;
+  --color-court-300: #6cc3ea;
+  --color-court-400: #33a9e0;
+  --color-court-500: #0091d5;
+  --color-court-600: #0b7dcb;
+  --color-court-700: #0f66b5;
+  --color-court-800: #0a4f8f;
+  --color-court-900: #04386a;
+  --color-court-950: #03203f;
+
+  --color-slate-50: #f4f8fb;
+  --color-slate-100: #e9f1f8;
+  --color-slate-200: #d3e2ee;
+  --color-slate-300: #adc7dc;
+  --color-slate-400: #7ca1bf;
+  --color-slate-500: #4f7ca1;
+  --color-slate-600: #2f5f8a;
+  --color-slate-700: #1e4a73;
+  --color-slate-800: #113559;
+  --color-slate-900: #0a2544;
+  --color-slate-950: #04162b;
+}
