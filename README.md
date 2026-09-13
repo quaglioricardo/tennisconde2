@@ -32,6 +32,22 @@ make test      # vitest: domínio (sorteio, pontuação, placar) + smoke da UI
 make lint      # typecheck web + server
 ```
 
+### Banco externo (Supabase)
+
+As migrações rodam automaticamente na subida do app. Para apontar para um Postgres já provisionado (ex.: Supabase), defina `DATABASE_URL` no `.env`:
+
+```bash
+DATABASE_URL=postgresql://postgres.<ref>:<senha>@aws-0-<região>.pooler.supabase.com:5432/postgres?sslmode=verify-full&sslrootcert=server/certs/supabase-prod-ca-2021.crt
+```
+
+Use o **session pooler** (porta 5432; a conexão direta é só IPv6). O certificado raiz da Supabase está em `server/certs/` — com ele o TLS é verificado por completo (sem ele, `pg` falha com `SELF_SIGNED_CERT_IN_CHAIN`). O caminho é relativo ao diretório de onde o processo roda.
+
+Para aplicar as migrações sem subir o app (ex.: passo de deploy):
+
+```bash
+npm run db:migrate
+```
+
 ## Como funciona
 
 **Papéis.** `admin` (os usuários em `ADMIN_USERNAMES`) e `player` (todo mundo que se cadastra). Não existe tela de gestão de papéis de propósito.
@@ -50,13 +66,15 @@ make lint      # typecheck web + server
 
 ```
 server/src/          API Express + TypeScript (rodada com tsx)
-  migrations/        SQL aplicado na subida
+  migrations/        SQL aplicado na subida (ou via npm run db:migrate)
+  certs/             CA raiz da Supabase (para sslmode=verify-full)
   domain/            sorteio, placar, classificação (puro, testado)
   services/          rankings, jogos, notificações, varredura de WO
   routes/            HTTP + validação (zod) + RBAC
 shared/types.ts      tipos compartilhados API ↔ SPA
 src/                 SPA React (Vite + Tailwind)
 src/legacy/          protótipo original, não montado (ver ADR 0001)
+scripts/migrate.ts   aplica migrações pendentes e sai
 ```
 
 ### API (resumo)
